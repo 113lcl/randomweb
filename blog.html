@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Journal — Pulsar</title>
+<meta name="description" content="Notes on design, engineering and building brands from the Pulsar Studio team.">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23c6ff3d%22/></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="loader"><span>Pulsar Studio</span></div>
+<div class="progress-bar"></div>
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<header class="nav">
+  <a href="index.html" class="nav__logo"><i></i>Pulsar</a>
+  <nav class="nav__links">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="about.html">Studio</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav__cta">
+    <a href="contact.html" class="btn btn-ghost magnetic">Start a project</a>
+    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <nav class="mobile-nav__links">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="about.html">Studio</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="mobile-nav__foot">
+    <span>hello@pulsarstudio.co</span>
+    <span>Warsaw · Remote</span>
+  </div>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><span>Studio</span> / Journal</div>
+      <h1 class="page-hero__title" data-reveal>Notes on design, <span class="grad-text">code, and craft.</span></h1>
+      <p class="lede" data-reveal style="margin-top:24px;">Essays and field notes from the people building Pulsar's projects day to day.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED POST -->
+  <section class="section-tight">
+    <div class="wrap">
+      <a href="#" class="tilt-card" style="display:grid; grid-template-columns: 1.1fr 1fr; overflow:hidden; text-decoration:none;" data-reveal>
+        <div class="tilt-card__inner" style="aspect-ratio:16/11; position:relative;"><div class="art art-4" style="position:absolute;inset:0;"></div></div>
+        <div class="tilt-card__inner" style="padding:48px;">
+          <div class="post-card__meta"><span class="cat">Design</span><span>Aug 12, 2026</span><span>9 min read</span></div>
+          <h2 style="font-size:clamp(24px,3vw,36px); margin:20px 0 16px;">Why we stopped designing in components and started designing in systems.</h2>
+          <p class="text-muted">A look at how shifting our internal workflow from screens-first to systems-first cut design time on client projects by nearly a third.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- POSTS GRID -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="filter-row" data-reveal>
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="design">Design</button>
+        <button class="filter-btn" data-filter="engineering">Engineering</button>
+        <button class="filter-btn" data-filter="studio">Studio life</button>
+      </div>
+
+      <div class="grid-3" data-reveal-group>
+
+        <a href="#" class="post-card" data-cat="engineering" data-reveal>
+          <div class="post-card__art"><div class="art art-5"></div></div>
+          <div class="post-card__meta"><span class="cat">Engineering</span><span>Jul 28, 2026</span></div>
+          <h3 class="post-card__title">Shipping motion-heavy sites without tanking Core Web Vitals</h3>
+          <p class="post-card__excerpt">The techniques we use to keep Lighthouse scores above 95 on our most animated projects.</p>
+        </a>
+
+        <a href="#" class="post-card" data-cat="design" data-reveal>
+          <div class="post-card__art"><div class="art art-6"></div></div>
+          <div class="post-card__meta"><span class="cat">Design</span><span>Jul 14, 2026</span></div>
+          <h3 class="post-card__title">The case for fewer, bolder typefaces in brand systems</h3>
+          <p class="post-card__excerpt">Why constraint produces more distinctive identities than a sprawling type library.</p>
+        </a>
+
+        <a href="#" class="post-card" data-cat="studio" data-reveal>
+          <div class="post-card__art"><div class="art art-7"></div></div>
+          <div class="post-card__meta"><span class="cat">Studio life</span><span>Jun 30, 2026</span></div>
+          <h3 class="post-card__title">How we run a 14-person studio across six timezones</h3>
+          <p class="post-card__excerpt">Our async-first rituals, from weekly critique to how we hand off between designers and engineers.</p>
+        </a>
+
+        <a href="#" class="post-card" data-cat="design" data-reveal>
+          <div class="post-card__art"><div class="art art-8"></div></div>
+          <div class="post-card__meta"><span class="cat">Design</span><span>Jun 9, 2026</span></div>
+          <h3 class="post-card__title">Designing empty states that actually delight users</h3>
+          <p class="post-card__excerpt">Small moments matter — a look at the empty-state details we obsess over on every product.</p>
+        </a>
+
+        <a href="#" class="post-card" data-cat="engineering" data-reveal>
+          <div class="post-card__art"><div class="art art-2"></div></div>
+          <div class="post-card__meta"><span class="cat">Engineering</span><span>May 22, 2026</span></div>
+          <h3 class="post-card__title">Our React component architecture for fast client handoff</h3>
+          <p class="post-card__excerpt">How we structure codebases so client teams can maintain what we build long after launch.</p>
+        </a>
+
+        <a href="#" class="post-card" data-cat="studio" data-reveal>
+          <div class="post-card__art"><div class="art art-3"></div></div>
+          <div class="post-card__meta"><span class="cat">Studio life</span><span>May 3, 2026</span></div>
+          <h3 class="post-card__title">Nine years in: what we'd tell our younger selves</h3>
+          <p class="post-card__excerpt">Lessons from a decade of client work, hiring, and learning what "senior" really means.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="testi" data-reveal style="display:flex; justify-content:space-between; align-items:center; gap:32px; flex-wrap:wrap;">
+        <div>
+          <h3 style="font-family:var(--font-display); font-size:clamp(20px,2.4vw,28px); margin-bottom:8px;">The Pulsar Dispatch</h3>
+          <p class="text-muted" style="max-width:420px;">One email a month. Design notes, studio updates, no fluff.</p>
+        </div>
+        <form style="display:flex; gap:12px; flex-wrap:wrap;" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓';">
+          <input type="email" required placeholder="you@company.com" style="background:var(--bg-raised); border:1px solid var(--line); border-radius:100px; padding:14px 22px; color:var(--fg); min-width:240px; outline:none;">
+          <button type="submit" class="btn btn-primary magnetic">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <div class="footer__logo">Pulsar</div>
+        <p class="text-muted" style="max-width:280px;">An independent design &amp; engineering studio building brands and products with lasting impact.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Sitemap</h4>
+        <a href="index.html">Home</a>
+        <a href="work.html">Work</a>
+        <a href="about.html">Studio</a>
+        <a href="services.html">Services</a>
+      </div>
+      <div class="footer__col">
+        <h4>More</h4>
+        <a href="team.html">Team</a>
+        <a href="blog.html">Journal</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <a href="https://github.com/113lcl/randomweb">GitHub</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Pulsar Studio. All rights reserved.</span>
+      <span>Designed &amp; built with obsession.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

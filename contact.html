@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Contact — Pulsar</title>
+<meta name="description" content="Tell Pulsar Studio about your project — we typically reply within one business day.">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23c6ff3d%22/></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="loader"><span>Pulsar Studio</span></div>
+<div class="progress-bar"></div>
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<header class="nav">
+  <a href="index.html" class="nav__logo"><i></i>Pulsar</a>
+  <nav class="nav__links">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="about.html">Studio</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav__cta">
+    <a href="contact.html" class="btn btn-ghost magnetic">Start a project</a>
+    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <nav class="mobile-nav__links">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="about.html">Studio</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="mobile-nav__foot">
+    <span>hello@pulsarstudio.co</span>
+    <span>Warsaw · Remote</span>
+  </div>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="breadcrumb"><span>Studio</span> / Contact</div>
+      <h1 class="page-hero__title" data-reveal>Tell us what you're <span class="grad-text">building next.</span></h1>
+      <p class="lede" data-reveal style="margin-top:24px;">Fill out the form or email us directly — we reply to every inquiry within one business day.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap grid-2" style="align-items:flex-start; gap:80px;">
+
+      <div data-reveal>
+        <form data-contact-form>
+
+          <div class="field">
+            <input type="text" id="name" placeholder=" " required>
+            <label for="name">Your name</label>
+          </div>
+
+          <div class="field">
+            <input type="email" id="email" placeholder=" " required>
+            <label for="email">Email address</label>
+          </div>
+
+          <div class="field">
+            <input type="text" id="company" placeholder=" ">
+            <label for="company">Company</label>
+          </div>
+
+          <div class="field select-field">
+            <label for="budget">Estimated budget</label>
+            <select id="budget">
+              <option>Under $10k</option>
+              <option selected>$10k – $30k</option>
+              <option>$30k – $75k</option>
+              <option>$75k+</option>
+            </select>
+          </div>
+
+          <div class="radio-row">
+            <input type="radio" name="service" id="svc1" checked><label for="svc1">Branding</label>
+            <input type="radio" name="service" id="svc2"><label for="svc2">Web Design</label>
+            <input type="radio" name="service" id="svc3"><label for="svc3">Product</label>
+            <input type="radio" name="service" id="svc4"><label for="svc4">Growth</label>
+          </div>
+
+          <div class="field">
+            <textarea id="message" rows="4" placeholder=" " required></textarea>
+            <label for="message">Tell us about your project</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg magnetic">Send message <svg class="btn-arrow w-icon" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+        </form>
+      </div>
+
+      <div data-reveal>
+        <div class="eyebrow">Other ways to reach us</div>
+        <a href="mailto:hello@pulsarstudio.co" style="font-family:var(--font-display); font-size:clamp(22px,2.6vw,32px); display:block; margin-bottom:32px;">hello@pulsarstudio.co</a>
+
+        <div class="hr" style="margin-bottom:32px;"></div>
+
+        <h4 style="font-family:var(--font-display); font-size:13px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:16px;">Studio</h4>
+        <p class="text-muted" style="margin-bottom:32px;">ul. Mokotowska 12<br>00-561 Warsaw, Poland</p>
+
+        <h4 style="font-family:var(--font-display); font-size:13px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:16px;">Follow</h4>
+        <div class="flex gap-16">
+          <a href="https://github.com/113lcl/randomweb" class="btn btn-ghost magnetic" style="padding:10px 20px;">GitHub</a>
+          <a href="#" class="btn btn-ghost magnetic" style="padding:10px 20px;">Instagram</a>
+          <a href="#" class="btn btn-ghost magnetic" style="padding:10px 20px;">LinkedIn</a>
+        </div>
+
+        <div class="hr" style="margin:32px 0;"></div>
+        <p class="text-muted" style="font-size:13px;">We typically respond within one business day. For urgent enquiries, mention it in your message and we'll prioritize it.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MAP-LIKE VISUAL -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="cs-hero-art" data-reveal style="aspect-ratio:21/6;"><div class="art art-4" style="display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:var(--font-display); font-size:clamp(16px,2vw,22px); letter-spacing:.05em; text-transform:uppercase; color:rgba(245,245,242,.85); text-align:center; padding:20px;">Warsaw · London · New York · Remote-first, always.</span>
+      </div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <div class="footer__logo">Pulsar</div>
+        <p class="text-muted" style="max-width:280px;">An independent design &amp; engineering studio building brands and products with lasting impact.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Sitemap</h4>
+        <a href="index.html">Home</a>
+        <a href="work.html">Work</a>
+        <a href="about.html">Studio</a>
+        <a href="services.html">Services</a>
+      </div>
+      <div class="footer__col">
+        <h4>More</h4>
+        <a href="team.html">Team</a>
+        <a href="blog.html">Journal</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <a href="https://github.com/113lcl/randomweb">GitHub</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Pulsar Studio. All rights reserved.</span>
+      <span>Designed &amp; built with obsession.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
