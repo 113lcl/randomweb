@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Why we stopped designing in components and started designing in systems — Pulsar</title>
+<meta name="description" content="How shifting our internal workflow from screens-first to systems-first cut design time on client projects by nearly a third.">
+<meta name="theme-color" content="#0a0a0b">
+<meta property="og:title" content="Why we stopped designing in components and started designing in systems">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23c6ff3d%22/></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="loader"><span>Pulsar Studio</span></div>
+<div class="progress-bar"></div>
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<header class="nav">
+  <a href="index.html" class="nav__logo"><i></i><span data-scramble>Pulsar</span></a>
+  <nav class="nav__links">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="lab.html">Lab</a>
+    <a href="about.html">Studio</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="nav__cta">
+    <button class="icon-btn" data-cmdk-open aria-label="Open search"><kbd>&#8984;K</kbd></button>
+    <button class="icon-btn icon-btn--theme" data-theme-toggle aria-label="Toggle theme">
+      <svg class="icon-sun w-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="icon-moon w-icon" viewBox="0 0 24 24" fill="none"><path d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 1010.5 10.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    </button>
+    <a href="contact.html" class="btn btn-ghost magnetic">Start a project</a>
+    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <nav class="mobile-nav__links">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="lab.html">Lab</a>
+    <a href="about.html">Studio</a>
+    <a href="services.html">Services</a>
+    <a href="team.html">Team</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="mobile-nav__foot">
+    <span>hello@pulsarstudio.co</span>
+    <span>Warsaw · Remote</span>
+  </div>
+</div>
+
+<main id="main">
+
+  <article>
+    <div class="wrap post-hero">
+      <div class="post-hero__meta"><span class="cat">Design</span><span>Aug 12, 2026</span><span>9 min read</span></div>
+      <h1 class="post-hero__title" data-reveal>Why we stopped designing in components and started designing in systems.</h1>
+      <div class="post-hero__author" data-reveal>
+        <div class="av avatar-1"></div>
+        <div><div class="name">Elena Kowalska</div><div class="role">Co-Founder, Creative Director</div></div>
+      </div>
+    </div>
+
+    <div class="wrap" style="max-width:980px; margin:0 auto 60px;">
+      <div class="cs-img" data-reveal style="margin:0;"><div class="art art-4" style="width:100%;height:100%;"></div></div>
+    </div>
+
+    <div class="wrap post-layout">
+      <aside class="post-toc" data-reveal>
+        <h4>On this page</h4>
+        <a href="#problem">The problem with components-first</a>
+        <a href="#shift">Making the shift</a>
+        <a href="#tokens">Tokens before pixels</a>
+        <a href="#results">What changed</a>
+        <a href="#advice">Advice if you're starting</a>
+        <div class="post-share">
+          <a href="#" class="icon-btn" style="display:flex;" aria-label="Share on Twitter">𝕏</a>
+          <a href="#" class="icon-btn" style="display:flex;" aria-label="Share on LinkedIn">in</a>
+        </div>
+      </aside>
+
+      <div class="post-body" data-reveal>
+        <p>For years, our design process started the same way every agency's does: open Figma, create a new frame, start drawing a homepage. Components got built along the way — a button here, a card there — assembled reactively as the screens demanded them. It felt productive. It was, in fact, quietly expensive.</p>
+
+        <h2 id="problem">The problem with components-first</h2>
+        <p>Designing screen-by-screen means every decision is made in the context of one page, for one moment. A button gets a border radius of 8px because it looked right on the homepage hero. Three screens later, a different designer creates another button at 12px because that's what felt right there. Neither designer is wrong — but multiply that by 40 screens and six months, and you get a product that reads like it was designed by six different studios, because in a sense, it was.</p>
+        <p>We noticed this most acutely on our larger product engagements. A feature that should have taken three days of design work was taking five, and most of the extra time wasn't spent solving new problems — it was spent re-deciding problems we'd already solved, just in a slightly different context.</p>
+
+        <h2 id="shift">Making the shift</h2>
+        <p>The fix wasn't a new tool. It was a sequencing change: define the system before the screens exist to use it. Concretely, that means the first week of any product engagement is now spent almost entirely away from full-page compositions. We build:</p>
+        <ul>
+          <li>A constrained type scale — six sizes, not sixteen.</li>
+          <li>A spacing scale based on a single base unit, so every margin and padding is a multiple of one number.</li>
+          <li>Color roles, not color names — "surface," "border," "accent" — mapped to values that can shift without renaming anything downstream.</li>
+          <li>Core interactive components (button, input, card, modal) built to handle every state — hover, focus, disabled, loading — before a single real screen references them.</li>
+        </ul>
+
+        <h2 id="tokens">Tokens before pixels</h2>
+        <p>The single highest-leverage habit has been designing in tokens before touching pixels. When "primary action color" is a token rather than a hex value pasted into forty different layers, changing brand direction two weeks before launch — which happens more often than clients like to admit — becomes a five-minute fix instead of a five-day one.</p>
+        <blockquote>The system isn't a constraint on creativity. It's what buys you the time to be creative about the 5% of the product that actually needs a fresh idea, instead of spending it all on the other 95%.</blockquote>
+        <p>This also changes how design reviews feel. Instead of debating whether this particular button should be 8px or 12px radius, the conversation moves to whether the flow makes sense, whether the copy is honest, whether the feature solves the actual problem. The system absorbs the small decisions so the room can focus on the big ones.</p>
+
+        <h2 id="results">What changed</h2>
+        <p>Since adopting this sequencing across client work in 2024, we've tracked design-hours-per-shipped-screen across comparable engagements. The number dropped by roughly 30% on average, with the effect compounding on longer projects — the Aurora rebuild, for instance, saw new screens in month three take almost half the design time of screens in month one, because the system had matured enough to answer most small questions on its own.</p>
+        <p>Engineering handoff improved too. When a design system maps cleanly onto a component library, the conversation with engineers shifts from "what does this look like" to "does this match," which is a much faster conversation to have.</p>
+
+        <h2 id="advice">Advice if you're starting</h2>
+        <p>Start smaller than feels comfortable. You don't need forty documented components before you can design a single real screen — you need the five or six that will appear everywhere, built properly once. Everything else can be extended from those foundations as real screens demand them, but now within constraints instead of inventing new ones each time.</p>
+        <p>And resist the urge to make the system perfect before using it. Systems get better by being stress-tested against real screens, not by being polished in isolation. Ship the first version, let real work push on its edges, and revise deliberately rather than endlessly.</p>
+      </div>
+    </div>
+  </article>
+
+  <section class="section related-posts">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>Keep reading</div>
+      <div class="grid-3" data-reveal-group>
+        <a href="blog-cwv.html" class="post-card" data-reveal>
+          <div class="post-card__art"><div class="art art-5"></div></div>
+          <div class="post-card__meta"><span class="cat">Engineering</span><span>Jul 28, 2026</span></div>
+          <h3 class="post-card__title">Shipping motion-heavy sites without tanking Core Web Vitals</h3>
+        </a>
+        <a href="blog-typefaces.html" class="post-card" data-reveal>
+          <div class="post-card__art"><div class="art art-6"></div></div>
+          <div class="post-card__meta"><span class="cat">Design</span><span>Jul 14, 2026</span></div>
+          <h3 class="post-card__title">The case for fewer, bolder typefaces in brand systems</h3>
+        </a>
+        <a href="blog-timezones.html" class="post-card" data-reveal>
+          <div class="post-card__art"><div class="art art-7"></div></div>
+          <div class="post-card__meta"><span class="cat">Studio life</span><span>Jun 30, 2026</span></div>
+          <h3 class="post-card__title">How we run a 14-person studio across six timezones</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <div class="footer__logo">Pulsar</div>
+        <p class="text-muted" style="max-width:280px;">An independent design &amp; engineering studio building brands and products with lasting impact.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Sitemap</h4>
+        <a href="index.html">Home</a>
+        <a href="work.html">Work</a>
+        <a href="lab.html">Lab</a>
+        <a href="about.html">Studio</a>
+        <a href="services.html">Services</a>
+      </div>
+      <div class="footer__col">
+        <h4>More</h4>
+        <a href="team.html">Team</a>
+        <a href="blog.html">Journal</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <a href="https://github.com/113lcl/randomweb">GitHub</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Pulsar Studio. All rights reserved.</span>
+      <span>Designed &amp; built with obsession.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" data-back-to-top aria-label="Back to top">
+  <svg class="w-icon" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M12 5l-6 6M12 5l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<div class="cmdk-overlay" data-cmdk-overlay>
+  <div class="cmdk-panel" role="dialog" aria-modal="true" aria-label="Command menu">
+    <div class="cmdk-input-row">
+      <svg class="w-icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input type="text" class="cmdk-input" placeholder="Jump to a page, or search..." data-cmdk-input autocomplete="off">
+      <kbd>ESC</kbd>
+    </div>
+    <div class="cmdk-list" data-cmdk-list></div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  const tocLinks = document.querySelectorAll('.post-toc a');
+  const headings = [...tocLinks].map(a => document.querySelector(a.getAttribute('href')));
+  document.addEventListener('scroll', () => {
+    let current = headings[0];
+    headings.forEach(h => { if(h && h.getBoundingClientRect().top < 140) current = h; });
+    tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current?.id));
+  }, { passive:true });
+</script>
+</body>
+</html>

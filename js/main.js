@@ -219,4 +219,284 @@
     if(href === current) a.classList.add('active');
   });
 
+  /* ---------- Theme toggle ---------- */
+  (function themeInit(){
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pulsar-theme');
+    if(stored) root.setAttribute('data-theme', stored);
+    document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        const next = isLight ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('pulsar-theme', next);
+      });
+    });
+  })();
+
+  /* ---------- Back to top ---------- */
+  const backToTop = document.querySelector('[data-back-to-top]');
+  if(backToTop){
+    document.addEventListener('scroll', () => {
+      backToTop.classList.toggle('is-visible', window.scrollY > 800);
+    }, { passive:true });
+    backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+  }
+
+  /* ---------- Text scramble on nav logo ---------- */
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ*#%$&';
+  document.querySelectorAll('[data-scramble]').forEach(el => {
+    const original = el.textContent;
+    let frame = 0, raf = null;
+    function scramble(){
+      let output = '';
+      const progress = frame / 10;
+      for(let i = 0; i < original.length; i++){
+        if(i < progress){ output += original[i]; }
+        else { output += CHARS[Math.floor(Math.random() * CHARS.length)]; }
+      }
+      el.textContent = output;
+      frame++;
+      if(frame <= original.length + 10){ raf = requestAnimationFrame(scramble); }
+      else { el.textContent = original; }
+    }
+    el.addEventListener('mouseenter', () => {
+      if(isTouch || reduceMotion) return;
+      cancelAnimationFrame(raf);
+      frame = 0;
+      scramble();
+    });
+  });
+
+  /* ---------- Command palette (⌘K) ---------- */
+  (function cmdk(){
+    const overlay = document.querySelector('[data-cmdk-overlay]');
+    if(!overlay) return;
+    const input = overlay.querySelector('[data-cmdk-input]');
+    const list = overlay.querySelector('[data-cmdk-list]');
+    const pages = [
+      { title:'Home', tag:'Page', href:'index.html' },
+      { title:'Work', tag:'Page', href:'work.html' },
+      { title:'Lab', tag:'Page', href:'lab.html' },
+      { title:'Studio', tag:'Page', href:'about.html' },
+      { title:'Services', tag:'Page', href:'services.html' },
+      { title:'Team', tag:'Page', href:'team.html' },
+      { title:'Journal', tag:'Page', href:'blog.html' },
+      { title:'Contact', tag:'Page', href:'contact.html' },
+      { title:'Aurora — Fintech branding case study', tag:'Work', href:'work-aurora.html' },
+      { title:'Vitality — Health product case study', tag:'Work', href:'work-vitality.html' },
+      { title:'Norrland — E-commerce case study', tag:'Work', href:'work-norrland.html' },
+      { title:'Why we stopped designing in components', tag:'Journal', href:'blog-systems-design.html' },
+      { title:'Shipping motion-heavy sites without tanking CWV', tag:'Journal', href:'blog-cwv.html' },
+      { title:'The case for fewer, bolder typefaces', tag:'Journal', href:'blog-typefaces.html' },
+      { title:'Email hello@pulsarstudio.co', tag:'Contact', href:'mailto:hello@pulsarstudio.co' },
+    ];
+    let activeIndex = 0;
+    let filtered = pages;
+
+    function render(){
+      list.innerHTML = '';
+      if(!filtered.length){
+        list.innerHTML = '<div class="cmdk-empty">No results. Try another search.</div>';
+        return;
+      }
+      filtered.forEach((p, i) => {
+        const item = document.createElement('div');
+        item.className = 'cmdk-item' + (i === activeIndex ? ' is-active' : '');
+        item.innerHTML = `<span>${p.title}</span><span class="cmdk-item__tag">${p.tag}</span>`;
+        item.addEventListener('mouseenter', () => { activeIndex = i; render(); });
+        item.addEventListener('click', () => go(p));
+        list.appendChild(item);
+      });
+    }
+    function go(p){
+      close();
+      window.location.href = p.href;
+    }
+    function open(){
+      overlay.classList.add('is-open');
+      document.body.classList.add('no-scroll');
+      input.value = '';
+      filtered = pages;
+      activeIndex = 0;
+      render();
+      setTimeout(() => input.focus(), 50);
+    }
+    function close(){
+      overlay.classList.remove('is-open');
+      document.body.classList.remove('no-scroll');
+    }
+    document.querySelectorAll('[data-cmdk-open]').forEach(btn => btn.addEventListener('click', open));
+    overlay.addEventListener('click', e => { if(e.target === overlay) close(); });
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase();
+      filtered = pages.filter(p => p.title.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q));
+      activeIndex = 0;
+      render();
+    });
+    document.addEventListener('keydown', e => {
+      if((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){
+        e.preventDefault();
+        overlay.classList.contains('is-open') ? close() : open();
+      }
+      if(!overlay.classList.contains('is-open')) return;
+      if(e.key === 'Escape') close();
+      if(e.key === 'ArrowDown'){ e.preventDefault(); activeIndex = Math.min(activeIndex + 1, filtered.length - 1); render(); }
+      if(e.key === 'ArrowUp'){ e.preventDefault(); activeIndex = Math.max(activeIndex - 1, 0); render(); }
+      if(e.key === 'Enter' && filtered[activeIndex]){ go(filtered[activeIndex]); }
+    });
+  })();
+
+  /* ---------- Testimonial / generic carousel ---------- */
+  document.querySelectorAll('[data-carousel]').forEach(root => {
+    const track = root.querySelector('.carousel__track');
+    const slides = root.querySelectorAll('.carousel__slide');
+    const dotsWrap = root.querySelector('.carousel__dots');
+    if(!track || !slides.length) return;
+    let index = 0;
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      if(i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => { index = i; update(); });
+      dotsWrap?.appendChild(dot);
+    });
+    function update(){
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dotsWrap?.querySelectorAll('button').forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+    let timer = setInterval(() => { index = (index + 1) % slides.length; update(); }, 5500);
+    root.addEventListener('mouseenter', () => clearInterval(timer));
+    root.addEventListener('mouseleave', () => { timer = setInterval(() => { index = (index + 1) % slides.length; update(); }, 5500); });
+  });
+
+  /* ---------- Lab: gradient mesh canvas ---------- */
+  document.querySelectorAll('[data-mesh]').forEach(stage => {
+    const canvas = document.createElement('canvas');
+    stage.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    let w, h, mx = 0.5, my = 0.5;
+    function resize(){ w = canvas.width = stage.clientWidth; h = canvas.height = stage.clientHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    stage.addEventListener('mousemove', e => {
+      const r = stage.getBoundingClientRect();
+      mx = (e.clientX - r.left) / r.width;
+      my = (e.clientY - r.top) / r.height;
+    });
+    const blobs = [
+      { c:'#7c5cff', dx:.2, dy:.15 },
+      { c:'#c6ff3d', dx:-.25, dy:.2 },
+      { c:'#ff5c8a', dx:.15, dy:-.2 }
+    ];
+    function draw(t){
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle = '#0a0a0b';
+      ctx.fillRect(0,0,w,h);
+      blobs.forEach((b, i) => {
+        const x = w * (0.5 + Math.sin(t/2000 + i) * 0.3 + (mx - 0.5) * b.dx);
+        const y = h * (0.5 + Math.cos(t/2400 + i) * 0.3 + (my - 0.5) * b.dy);
+        const grad = ctx.createRadialGradient(x, y, 0, x, y, w * 0.35);
+        grad.addColorStop(0, b.c + 'aa');
+        grad.addColorStop(1, b.c + '00');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0,0,w,h);
+      });
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  });
+
+  /* ---------- Lab: draggable stack ---------- */
+  document.querySelectorAll('[data-stack]').forEach(stage => {
+    const cards = stage.querySelectorAll('.stack-card');
+    cards.forEach(card => {
+      let dragging = false, startX, startY, origX, origY;
+      card.addEventListener('pointerdown', e => {
+        dragging = true;
+        stage.appendChild(card);
+        startX = e.clientX; startY = e.clientY;
+        origX = card.offsetLeft; origY = card.offsetTop;
+        card.setPointerCapture(e.pointerId);
+      });
+      card.addEventListener('pointermove', e => {
+        if(!dragging) return;
+        const dx = e.clientX - startX, dy = e.clientY - startY;
+        card.style.left = origX + dx + 'px';
+        card.style.top = origY + dy + 'px';
+        card.style.transform = `rotate(${dx * 0.04}deg)`;
+      });
+      card.addEventListener('pointerup', () => { dragging = false; });
+    });
+  });
+
+  /* ---------- Lab: scramble demo ---------- */
+  document.querySelectorAll('[data-scramble-demo]').forEach(el => {
+    const words = ['CREATIVITY', 'INTERACTION', 'MOTION', 'CRAFT', 'PULSAR'];
+    let wi = 0, frame = 0, raf;
+    function run(){
+      const target = words[wi];
+      let output = '';
+      for(let i = 0; i < target.length; i++){
+        output += i < frame/2 ? target[i] : CHARS[Math.floor(Math.random()*CHARS.length)];
+      }
+      el.textContent = output;
+      frame++;
+      if(frame < target.length * 2 + 20){ raf = requestAnimationFrame(run); }
+      else { wi = (wi + 1) % words.length; frame = 0; setTimeout(() => requestAnimationFrame(run), 900); }
+    }
+    run();
+  });
+
+  /* ---------- Lab: palette generator ---------- */
+  document.querySelectorAll('[data-palette]').forEach(stage => {
+    function randomPalette(){
+      stage.innerHTML = '';
+      const hue = Math.floor(Math.random() * 360);
+      for(let i = 0; i < 5; i++){
+        const h = (hue + i * (360/7)) % 360;
+        const sw = document.createElement('div');
+        sw.className = 'palette-swatch';
+        sw.style.background = `hsl(${h}, 70%, ${38 + i*4}%)`;
+        sw.textContent = `#${Math.floor(h)}`;
+        sw.addEventListener('click', randomPalette);
+        stage.appendChild(sw);
+      }
+    }
+    randomPalette();
+  });
+
+  /* ---------- Lab: magnet grid ---------- */
+  document.querySelectorAll('[data-magnet-grid]').forEach(stage => {
+    for(let i = 0; i < 60; i++){
+      const dot = document.createElement('div');
+      dot.className = 'magnet-dot';
+      stage.appendChild(dot);
+    }
+    const dots = stage.querySelectorAll('.magnet-dot');
+    stage.addEventListener('mousemove', e => {
+      const r = stage.getBoundingClientRect();
+      dots.forEach(dot => {
+        const dr = dot.getBoundingClientRect();
+        const dx = (dr.left + dr.width/2) - e.clientX;
+        const dy = (dr.top + dr.height/2) - e.clientY;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        const strength = Math.max(0, 1 - dist / 120);
+        dot.style.transform = `translate(${dx*strength*0.5}px, ${dy*strength*0.5}px) scale(${1+strength})`;
+        dot.style.background = strength > 0.1 ? 'var(--accent)' : '';
+      });
+    });
+    stage.addEventListener('mouseleave', () => dots.forEach(d => { d.style.transform=''; d.style.background=''; }));
+  });
+
+  /* ---------- Lab: slider readout ---------- */
+  document.querySelectorAll('[data-slider]').forEach(wrap => {
+    const range = wrap.querySelector('input[type=range]');
+    const readout = wrap.querySelector('.slider-readout');
+    if(!range || !readout) return;
+    const suffix = wrap.dataset.suffix || '';
+    const update = () => readout.textContent = range.value + suffix;
+    range.addEventListener('input', update);
+    update();
+  });
+
 })();
