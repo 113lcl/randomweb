@@ -114,6 +114,10 @@ html.has-touch .cursor-dot, html.has-touch .cursor-ring{ display:none; }
 .grad-text{
   background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
+.accent-underline{ text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: .06em; text-underline-offset: .08em; }
+.muted-text{ color: var(--muted); }
+.outline-text{ -webkit-text-stroke: 1.5px var(--fg); color: transparent; }
+@supports not (-webkit-text-stroke: 1px #000){ .outline-text{ -webkit-text-stroke: none; color: var(--fg); opacity: .35; } }
 .hr{ height:1px; background: var(--line); border:none; margin: 0; }
 
 /* ==========================================================================

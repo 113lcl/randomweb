@@ -294,6 +294,9 @@
     let activeIndex = 0;
     let filtered = pages;
 
+    function updateActive(){
+      list.querySelectorAll('.cmdk-item').forEach((el, i) => el.classList.toggle('is-active', i === activeIndex));
+    }
     function render(){
       list.innerHTML = '';
       if(!filtered.length){
@@ -304,7 +307,7 @@
         const item = document.createElement('div');
         item.className = 'cmdk-item' + (i === activeIndex ? ' is-active' : '');
         item.innerHTML = `<span>${p.title}</span><span class="cmdk-item__tag">${p.tag}</span>`;
-        item.addEventListener('mouseenter', () => { activeIndex = i; render(); });
+        item.addEventListener('mouseenter', () => { activeIndex = i; updateActive(); });
         item.addEventListener('click', () => go(p));
         list.appendChild(item);
       });
