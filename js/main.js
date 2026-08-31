@@ -377,34 +377,82 @@
     const canvas = document.createElement('canvas');
     stage.appendChild(canvas);
     const ctx = canvas.getContext('2d');
-    let w, h, mx = 0.5, my = 0.5;
-    function resize(){ w = canvas.width = stage.clientWidth; h = canvas.height = stage.clientHeight; }
+    let w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let mx = -9999, my = -9999;
+    const colors = () => {
+      const cs = getComputedStyle(document.documentElement);
+      return [cs.getPropertyValue('--accent-2').trim(), cs.getPropertyValue('--accent').trim(), cs.getPropertyValue('--accent-3').trim()];
+    };
+    function resize(){
+      w = stage.clientWidth; h = stage.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
     resize();
     window.addEventListener('resize', resize);
     stage.addEventListener('mousemove', e => {
       const r = stage.getBoundingClientRect();
-      mx = (e.clientX - r.left) / r.width;
-      my = (e.clientY - r.top) / r.height;
+      mx = e.clientX - r.left; my = e.clientY - r.top;
     });
-    const blobs = [
-      { c:'#7c5cff', dx:.2, dy:.15 },
-      { c:'#c6ff3d', dx:-.25, dy:.2 },
-      { c:'#ff5c8a', dx:.15, dy:-.2 }
-    ];
-    function draw(t){
-      ctx.clearRect(0,0,w,h);
-      ctx.fillStyle = '#0a0a0b';
-      ctx.fillRect(0,0,w,h);
-      blobs.forEach((b, i) => {
-        const x = w * (0.5 + Math.sin(t/2000 + i) * 0.3 + (mx - 0.5) * b.dx);
-        const y = h * (0.5 + Math.cos(t/2400 + i) * 0.3 + (my - 0.5) * b.dy);
-        const grad = ctx.createRadialGradient(x, y, 0, x, y, w * 0.35);
-        grad.addColorStop(0, b.c + 'aa');
-        grad.addColorStop(1, b.c + '00');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0,0,w,h);
+    stage.addEventListener('mouseleave', () => { mx = -9999; my = -9999; });
+
+    const COUNT = 60;
+    const nodes = Array.from({ length: COUNT }, () => ({
+      x: Math.random(), y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.0006, vy: (Math.random() - 0.5) * 0.0006,
+      c: Math.floor(Math.random() * 3)
+    }));
+    const LINK_DIST = 0.16;
+
+    function draw(){
+      const pal = colors();
+      const lineBase = getComputedStyle(document.documentElement).getPropertyValue('--fg').trim();
+      ctx.clearRect(0, 0, w, h);
+      nodes.forEach(n => {
+        n.x += n.vx; n.y += n.vy;
+        if(n.x < 0 || n.x > 1) n.vx *= -1;
+        if(n.y < 0 || n.y > 1) n.vy *= -1;
       });
+      for(let i = 0; i < COUNT; i++){
+        for(let j = i + 1; j < COUNT; j++){
+          const a = nodes[i], b = nodes[j];
+          const dx = (a.x - b.x) * w, dy = (a.y - b.y) * h;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < LINK_DIST * Math.max(w, h)){
+            const alpha = (1 - dist / (LINK_DIST * Math.max(w, h))) * 0.35;
+            ctx.strokeStyle = hexToRgba(lineBase, alpha);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x * w, a.y * h);
+            ctx.lineTo(b.x * w, b.y * h);
+            ctx.stroke();
+          }
+        }
+        const n = nodes[i];
+        const nx = n.x * w, ny = n.y * h;
+        const dmx = nx - mx, dmy = ny - my;
+        const distToMouse = Math.sqrt(dmx*dmx + dmy*dmy);
+        if(distToMouse < 160){
+          ctx.strokeStyle = hexToRgba(pal[n.c], (1 - distToMouse / 160) * 0.7);
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(nx, ny);
+          ctx.lineTo(mx, my);
+          ctx.stroke();
+        }
+        ctx.fillStyle = pal[n.c];
+        ctx.beginPath();
+        ctx.arc(nx, ny, distToMouse < 160 ? 3 : 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
       requestAnimationFrame(draw);
+    }
+    function hexToRgba(hex, alpha){
+      hex = hex.replace('#','');
+      if(hex.length === 3) hex = hex.split('').map(c => c+c).join('');
+      const r = parseInt(hex.slice(0,2),16), g = parseInt(hex.slice(2,4),16), b = parseInt(hex.slice(4,6),16);
+      return `rgba(${r},${g},${b},${alpha})`;
     }
     requestAnimationFrame(draw);
   });
