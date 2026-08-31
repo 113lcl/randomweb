@@ -550,6 +550,12 @@ html.has-touch .cursor-dot, html.has-touch .cursor-ring{ display:none; }
   .hero__meta{ flex-direction:column; align-items:flex-start; gap:20px; }
   .section{ padding: 64px 0; }
   .page-hero{ padding: 128px 0 40px; }
+
+  .hero{ min-height:auto; justify-content:flex-start; padding-top: 96px; padding-bottom: 72px; }
+  .eyebrow{ align-items:flex-start; }
+  .eyebrow::before{ margin-top: 9px; flex:none; }
+  .hero__title{ font-size: clamp(38px, 11vw, 56px); }
+  .scroll-cue{ position:static; transform:none; margin: 56px 0 0; }
 }
 
 @media (hover: none){
